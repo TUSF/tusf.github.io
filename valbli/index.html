@@ -1,0 +1,380 @@
+<html>
+<head>
+<title>Valbli Proposal</title>
+<style>
+	nav#nav {
+		border: 1px solid black;
+		background: #DDD;
+		width:250px;
+		margin-left:20px;
+	}
+	section {
+		padding-left: 35px;
+	}
+	p:before {
+		content:"　"; /* A full-width space to act as an indentation. */
+	}
+	span.WIP {
+		font-weight:bold;
+		color:red;
+	}
+	span.WIP:before {
+		content:"(Note: "
+	}
+	span.WIP:after {
+		content:")"
+	}
+	table, td {
+		border: 1px solid #aaa;
+		text-align: center;
+	}
+	div.glyph {
+		border: 1px solid black;
+		padding: 5px;
+		display: inline-block;
+		margin:0px;
+	}
+	.glyph .IPA:before {
+		content: "IPA: ";
+		font-weight: bold;
+		display:inline-block;
+		width:40px;
+	}
+	.glyph .latin:before {
+		content: "Latin: ";
+		font-weight: bold;
+		display:inline-block;
+		width:40px;
+	}
+	.glyph span {
+		font-size:12px;
+		font-style:oblique;
+		background-color: #AAA;
+		width: 100%;
+		display:block;
+	}
+	table.examples th {
+		font-style: italic;
+	}
+</style>
+</head>
+<body>
+	<img src="valbli.png" style="float:left;"/>
+	<h1>Valbli Orthography Proposal</h1>
+	<span class="WIP">This is a draft, and subject to change.</span>
+	<section id="abstract">
+		<p>Many writing systems have been proposed for Lojban. Hangul is the writing system used in Korean, and potentially a
+		a great options to use for Lojban. It's a featural writing system, meaning that most of its symbols are chosen for a
+		reason, and not just arbitrarily. The most attractive feature of Hangul is the syllable-blocks that well compress the
+		language.</p>
+		<p>However, while Hangul is an interesting and logical system, the evolution of the language has made it difficult
+		to use in its natural state for anything other than Korean. For that reason, instead of mapping a Korean writing
+		system to the specifications of a language not at all like Korean, this proposal aims to define a writing system that,
+		while similar in some aspects to Hangul, is better suited to Lojban. The Temporary name of this writing system is
+		<b>Valbli.</b>
+		(<a href="http://jbovlaste.lojban.org/lookup.pl?Form=lookup.pl2&Database=*&Query=valsi" target="_blank">valsi</a> + <a href="http://jbovlaste.lojban.org/lookup.pl?Form=lookup.pl2&Database=*&Query=bliku" target="_blank">bliku</a>)</p>
+	</section>
+	<nav id="nav">
+		<p><b>Table of Contents</b></p>
+		<ul>
+			<li><a href="#lerfu">Letters</a>
+				<ul>
+					<li><a href="#vowels">Vowels</a></li>
+					<li><a href="#consonants">Consonants</a></li>
+				</ul></li>
+			<li><a href="#bliku">Blocks</a></li>
+		</ul>
+	</nav>
+	<section id="lerfu">
+		<h2>Letters</h2>
+			<p>Valbli is an alphabet. Each symbol, or letter, represents a phoneme in Lojbanic phonology. In total, there are
+			six (6) vowel and twenty-one (21) consonant sounds in Lojban, for a total of twenty-seven (27) letters. However,
+			Roman-mode Lojban treats the <i>unvoiced glottal spirant</i> (IPA: <b>h</b>, LJB: <b>'</b>) and <i>glottal
+			stop</i> (IPA: <b>ʔ</b>, LJB: <b>.</b>) as only half-consonants, while treating the <i>voiced labio-velar
+			approximant</i> (IPA: <b>w</b>, <b>u-</b>) and <i>palatal approximant</i> (IPA: <b>j</b>, LJB: <b>i-</b>) as
+			the starting vowel of diphthongs. This leaves us with only a need for 6 vowels and 19 consonants.</p>
+			<p>Below is my proposed chart for the various letters of Valbli.</p>
+		<section id="vowels">
+			<h3>Vowels</h3>
+			<div class="glyph">			<!-- a -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M35,60 l30,0 -15,-30 -15,30" />
+			</g></svg>
+				<span class="IPA">a (ɑ)</span>
+				<span class="latin">a</span>
+			</div><div class="glyph">	<!-- e -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M35,60 l30,0 -15,-30 -15,30
+				M50,50 l0,0" />
+			</g></svg>
+				<span class="IPA">ɛ (e)</span>
+				<span class="latin">e</span>
+			</div><div class="glyph">	<!-- i -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M50,50 l0,0" />
+			</g></svg>
+				<span class="IPA">i</span>
+				<span class="latin">i</span>
+			</div><div class="glyph">	<!-- o -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<circle cx="50" cy="50" r="15" />
+			</g></svg>
+				<span class="IPA">o (ɔ)</span>
+				<span class="latin">o</span>
+			</div><div class="glyph">	<!-- u -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<rect x="35" y="35" width="30" height="30" />
+			</g></svg>
+				<span class="IPA">u</span>
+				<span class="latin">u</span>
+			</div><div class="glyph">	<!-- y -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<circle cx="50" cy="50" r="15" />
+				<path d="M50,50 l0,0" />
+			</g></svg>
+				<span class="IPA">ə</span>
+				<span class="latin">y</span>
+			</div>
+		</section>
+		<section id="consonants">
+			<h3>Consonants</h3>
+			<section id="stops">
+			<div class="glyph">			<!-- . -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M5,50 l90,0" />
+			</g></svg>
+				<span class="IPA">ʔ</span>
+				<span class="latin">.</span>
+			</div><div class="glyph">	<!-- b -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M5,50 l90,0
+				M85,50 c20,40 -55,40 -40,0
+				M25,50 l0,30" />
+			</g></svg>
+				<span class="IPA">b</span>
+				<span class="latin">b</span>
+			</div><div class="glyph">	<!-- d -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M5,50 l90,0
+				M50,50 l0,30
+				M25,50 l0,30" />
+			</g></svg>
+				<span class="IPA">d</span>
+				<span class="latin">d</span>
+			</div><div class="glyph">	<!-- g -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M5,50 l90,0
+				M50,50 l-40,30
+				M25,50 l0,18" />
+			</g></svg>
+				<span class="IPA">g</span>
+				<span class="latin">g</span>
+			</div><div class="glyph">	<!-- k -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M5,50 l90,0
+				M50,50 l-40,30" />
+			</g></svg>
+				<span class="IPA">k</span>
+				<span class="latin">k</span>
+			</div><div class="glyph">	<!-- p -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M5,50 l90,0
+				M85,50 c20,40 -55,40 -40,0" />
+			</g></svg>
+				<span class="IPA">p</span>
+				<span class="latin">p</span>
+			</div><div class="glyph">	<!-- t -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M5,50 l90,0
+				M50,50 l0,30" />
+			</g></svg>
+				<span class="IPA">t</span>
+				<span class="latin">t</span>
+			</div></section>
+			<section id="sibilants">
+			<div class="glyph">	<!-- c -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M25,30 l40,0 0,20 -40,0
+				M25,50 l0,20" />
+			</g></svg>
+				<span class="IPA">ʃ (ʂ)</span>
+				<span class="latin">c</span>
+			</div><div class="glyph">	<!-- j -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M25,30 l40,0 0,20 -40,0
+				M25,50 l0,20
+				M25,70 l40,0" />
+			</g></svg>
+				<span class="IPA">ʒ (ʐ)</span>
+				<span class="latin">j</span>
+			</div><div class="glyph">	<!-- s -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M25,30 l40,0 0,20 -40,0" />
+			</g></svg>
+				<span class="IPA">s</span>
+				<span class="latin">s</span>
+			</div><div class="glyph">	<!-- z -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M25,30 l40,0 0,20 -40,0
+				M25,70 l40,0" />
+			</g></svg>
+				<span class="IPA">z</span>
+				<span class="latin">z</span>
+			</div>
+			</section>
+			<section id="fricatives">
+			<div class="glyph">			<!-- ' -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M45,5 l0,90" />
+			</g></svg>
+				<span class="IPA">h</span>
+				<span class="latin">'</span>
+			</div><div class="glyph">	<!-- f -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M45,5 l0,90
+				M45,55 s45,20 20,-35" />
+			</g></svg>
+				<span class="IPA">f (ɸ)</span>
+				<span class="latin">f</span>
+			</div><div class="glyph">	<!-- v -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M45,5 l0,90
+				M45,55 s45,20 20,-35
+				M45,77 l30,0" />
+			</g></svg>
+				<span class="IPA">v (β)</span>
+				<span class="latin">v</span>
+			</div><div class="glyph">	<!-- x -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M45,5 l0,90
+				M45,50 l30,45"
+			</g></svg>
+				<span class="IPA">x</span>
+				<span class="latin">x</span>
+			</div></section>
+			<section id="nasals">
+			<div class="glyph">	<!-- m -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M25,30 l0,40 40,0
+				M45,35 q-15,10 -5,20 t 20,-5" />
+			</g></svg>
+				<span class="IPA">m (m̩)</span>
+				<span class="latin">m</span>
+			</div><div class="glyph">	<!-- n -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M25,30 l0,40 40,0
+				M45,70 l0,-35"
+			</g></svg>
+				<span class="IPA">n (n̩, ŋ, ŋ̩̩)</span>
+				<span class="latin">n</span>
+			</div>
+			</section>
+			<section id="others">
+			<div class="glyph">	<!-- l -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M25,50 l20,-20
+				M45,60 l20,-20" />
+			</g></svg>
+				<span class="IPA">l (l̩)</span>
+				<span class="latin">l</span>
+			</div><div class="glyph">	<!-- r -->
+			<svg width="100" height="100"><g stroke-width="5" stroke-linecap="round" fill="none" stroke="black">
+				<path d="M45,30 l0,40 30,-30" />
+			</g></svg>
+				<span class="IPA">r</span>
+				<span class="latin">r</span>
+			</div>
+			</section>
+		</section>
+		<span class="WIP">The alphabet is not final. Graphemes are subject to change, if a symbol proves cumbersome, or if
+		a better alternative is proposed.</span>
+
+		<p>As you can probably tell, there is a pattern to certain letters. This is, to an extent, a featural writing system.
+		I split up the manner of articulation for different phonemes in Lojban into their own templates. <i>Stops</i> (., b, d, g,
+		k, p, t) have a horizontal line as a base. The base for <i>Sibilants</i> (c, j, s, z) is a left-facing cup.
+		<i>Fricatives</i> (', f, v, x) have a vertical line as a base. And <i>Nasals</i> (m, n) have a right-facing 90-degree
+		angle for a base.</p>
+		<p>The idea behind the bases allows for quickly identifying a symbol, and because Lojban does not allow <i>gismu</i>
+		with similar sounding words, a reader is not likely to mix up words. Modifications to the base are also determined
+		by the type of sound it is classified under IPA. However, because "<i>l</i>" and "<i>r</i>" do not fall into either
+		of the above categories, neither follows a format, but are distinct enough to not be mistaken for one another.
+		Similarly, the vowels in Valbli were arbitrarily chosen for their distinctivness.</p>
+	</section>
+	<section id="bliku">
+		<h2>Blocks</h2>
+		<p>To start with, it's probably a good idea to define how Valbli plans to form blocks. In Hangul, letters come
+		together, and form syllable blocks. Rarely are there blocks composed of multiple syllables. In Lojban, syllables are
+		formed around vowel sounds, often surrounded by consonants or consonant pair. <i>Gismu</i>, the core to Lojban
+		vocabulary, are all composed of 5 letters, and 2 syllables. Thus, <i>gismu</i> exist in either <i>CCVCV</i> or
+		<i>CVCCV</i>. <i>Rafsi</i>, abbreviated <i>gismu</i> affixes are a single syllable that exist as either <i>CVC</i>,
+		<i>CCV</i>, or <i>CVV</i> forms.</p>
+
+		<p>For these reasons, up to six Valbli letters stack into Syllable Blocks, and up to two Syllable Blocks stack into 1
+		Word Block. As a result, <i>Cmavo</i> and <i>Gismu</i> can all be represented in a single glyph. <i>Lujvo</i>
+		(compond words formed from <i>Rafsi</i> syllables) may require multiple glyphs because Lujvo can be arbitrarily long
+		(as long as they end in a vowel).</p>
+		<p>The tables below would represent a couple syllable formats.</p>
+		<pre>
+	╔════════════╦════════════╗  ╔════════╦════════╦════════╗
+	║            ║            ║  ║        ║        ║        ║
+	║     1      ║     2      ║  ║    1   ║    2   ║    3   ║
+	║            ║            ║  ║        ║        ║        ║
+	╚════════════╩════════════╝  ╚════════╩════════╩════════╝</pre>
+		<p>These two formats represent either (C)CV, CV(V) or even (V)VV syllables. It should be noted that Lojban does not
+		treat the <i>unvoiced glottal spirant</i> (') as a vowel nor consonant, and instead acts more as a seperator for
+		vowels. In Valbli, the <i>unvoiced glottal spirant</i> is a simple vertical line, and may be inserted BETWEEN the
+		given positions.</p>
+		<p>However, these aren't the only positions letters may take. If the starting consonant of a syllable is a <i>Stop</i>
+		or a <i>Nazal</i> consonant, the letter stretches horizontally to fill the row, and pushes the rest of the syllable
+		below it. Similarly, a <i>Stop</i> or <i>Nazal</i> consonant at the END of the syllable, but not the start, will push
+		the rest of the syllable above itself.</p>
+		<pre>
+	╔═════════════════════════╗  ╔═════════════════════════╗  ╔════════════╦════════════╗
+	║            1            ║  ║            1            ║  ║     1      ║     2      ║
+	╠═════════════════════════╣  ╠════════════╦════════════╣  ╠════════════╩════════════╣
+	║            2            ║  ║     2      ║      3     ║  ║            3            ║
+	╚═════════════════════════╝  ╚════════════╩════════════╝  ╚═════════════════════════╝</pre>
+		<p>And if the starting or ending consonant is a <i>Fricative</i> or <i>Sibilant</i> cosonant, the letter stretches
+		vertically, forcing the rest of the syllable to be stacked next to it.</p>
+		<pre>
+	╔════════════╦════════════╗  ╔════════════╦════════════╗
+	║            ║     2      ║  ║     1      ║            ║
+	║     1      ╠════════════╣  ╠════════════╣     3      ║
+	║            ║     3      ║  ║     2      ║            ║
+	╚════════════╩════════════╝  ╚════════════╩════════════╝</pre>
+
+	<img src="sutra.png" style="float:right;" />
+	<p>The diagram to the right represents the <i>gismu</i>, "<i>sutra</i>" (fast), with every letter color-coded and the
+	reading order labled. The word-block is composed of two syllables stacked on top of each other, with the top one being
+	read first. Each syllable is read with the top-left most letter first, in the order shown in the tables above. In that
+	case of "<i>sutra</i>", the first syllable is "sut". The first letter, "s" is a Sibilant, and thus it stretches
+	vertically, pushing the rest of the syllable to its side. As a result, "u" and "t" are read from top to bottom. In the
+	case of "ra", the only consonant "r" does not modify itself under any circumstant, and thus both letters fill the
+	syllable block normally.</p>
+
+	<p>Valbli's writing direction could be either top-to-bottom or left-to-right. Either mode has its benefits, and in either
+	instance, spaces are completely optional. However, it should be noted that when writing top-to-bottom, it becomes difficult
+	to distinguish one syllable from the other.  Can you read what the sentence below says?</p>
+	<img src="mi sutra bajra.png" />
+
+	<p>Something to keep in mind, is that the <i>glottal stop</i> (.) and <i>glottal spirant</i> (') do not completely act as letters in
+	Valbli, much like they do not treated as phenomes of their own in Lojban phonlogy. For this reason, neither of these letters
+	truly fit into the tables above. A <b>.</b> will never be inserted mid-word, and thus the only place it can be placed is above
+	and/or below a word block, and a <b>'</b> will only appear between vowels. In that case, a <b>'</b> can be placed between any vowel
+	without changing the format of the syllable. If the two vowels in question are stacked vertically, then a horizontal line will
+	be placed between them.</p>
+
+	<p>The table below illustrates this interaction.</p>
+
+	<table class="examples">
+		<tr> <td><img src="ai.png" /></td> <td><img src="rai.png" /></td>
+			<td><img src="a'i.png" /></td> <td><img src="ra'i.png" /></td> </tr>
+		<tr> <th>ai</th> <th>rai</th> <th>a'i</th> <th>ra'i</th> </tr>
+
+                <tr> <td><img src="stop-rai.png" /></td> <td><img src="ta'a.png" /></td>
+			<td><img src="fa'a.png" /></td> <td><img src="stop-fa'a.png" /></td> </tr>
+                <tr> <th>.rai</th> <th>ta'a</th> <th>fa'a</th> <th>.fa'a</th> </tr>
+	</table>
+	</section>
+</body>
+</html>
