@@ -61,32 +61,35 @@ handleInput();
 var AngloNormanTerms;
 var OldFrenchTerms;
 (function() {
-		httpRequest = new XMLHttpRequest();
-		httpRequest.onreadystatechange = function(){
-		if (httpRequest.readyState === XMLHttpRequest.DONE) {
-			if (httpRequest.status === 200) {
-				terms = httpRequest.responseText.split("\n")
+	//Anglo-Norman
+		anRequest = new XMLHttpRequest();
+		anRequest.onreadystatechange = function(){
+		if (anRequest.readyState === XMLHttpRequest.DONE) {
+			if (anRequest.status === 200) {
+				terms = anRequest.responseText.split("\n")
 				reg = "\\b(" + terms.join("|") + ")\\b"
 				AngloNormanTerms = new RegExp(reg, 'ig')
 				//Super long regex, because I'm a bad coder.
 				//If you have a better way, comit it, pls.
-
-				httpRequest = new XMLHttpRequest();
-					httpRequest.onreadystatechange = function(){
-					if (httpRequest.readyState === XMLHttpRequest.DONE) {
-						if (httpRequest.status === 200) {
-							terms = httpRequest.responseText.split("\n")
-							reg = "\\b(" + terms.join("|") + ")\\b"
-							OldFrenchTerms = new RegExp(reg, 'ig')
-						}
-					}
-		}
-		httpRequest.open('GET', 'oldfrench.txt', true);
-		httpRequest.send(null);
-
 			}
 		}
 		}
-		httpRequest.open('GET', 'anglonorman.txt', true);
-		httpRequest.send(null);
+		anRequest.open('GET', 'anglonorman.txt', true);
+		anRequest.send(null);
+	
+	//Old French
+		ofRequest = new XMLHttpRequest();
+		ofRequest.onreadystatechange = function(){
+		if (ofRequest.readyState === XMLHttpRequest.DONE) {
+			if (ofRequest.status === 200) {
+				terms = anRequest.responseText.split("\n")
+				reg = "\\b(" + terms.join("|") + ")\\b"
+				AngloNormanTerms = new RegExp(reg, 'ig')
+				//Super long regex, because I'm a bad coder.
+				//If you have a better way, comit it, pls.
+			}
+		}
+		}
+		ofRequest.open('GET', 'anglonorman.txt', true);
+		ofRequest.send(null);
 })();
