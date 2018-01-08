@@ -25,10 +25,11 @@
 
         // index.json should contain a single object with metadata about the given series.
         // toc.json should contain a list of all chapters (in order), with metadata on each chapter.
-        node.files.cat(hash + "/index.json", function(err,date) {
+        node.files.cat(hash + "/index.json", function(err, data) {
           if(err) {
             return console.error('Error - ipfs files cat', err, res)
           }
+          console.log(data)
           console.log(data.toString())
 
           node.swarm.peers().then(a => console.log(a))
@@ -48,7 +49,7 @@
   </style>
 </head>
 <body>
-  <h1 id="status">Node status: loading…</h1>
+  <h1 id="status">loading…</h1>
   <div id="reader">
     <h1>Online</h1>
   </div>
