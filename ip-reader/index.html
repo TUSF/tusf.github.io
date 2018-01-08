@@ -8,9 +8,8 @@
   <script type="text/javascript">
     const node = new Ipfs({ repo: 'ipfs-' + Math.random() })
     node.once('ready', () => {
-      if( node.isOnline() && window.location.hash > 1 ) {
+      if( window.location.hash > 1 ) {
         hash = window.location.hash.substr(1)
-        ipfs.swarm.peers().then(a => console.log(a))
 
         // Load the index within the hash.
         // The structure of a manga series should go something like this:
@@ -31,10 +30,11 @@
             return console.error('Error - ipfs files cat', err, res)
           }
           console.log(data.toString())
-        })
 
-        console.log('Online status: offline')
-        document.body.classList += "online"
+          node.swarm.peers().then(a => console.log(a))
+          console.log('Online status: offline')
+          document.body.classList += "online"
+        })
       } else {
         console.log('Online status: offline')
         document.getElementById("status").innerHTML= 'Node status: offline'
