@@ -27,3 +27,26 @@ function getIndex(hash, callback) {
 		})
 	}
 }
+
+function getImage(hash, callback) {
+	if typeof hash === "string" && typeof callback === "function" ) {
+		node.files.cat(hash, function(err, data) {
+			if(err) {
+				return console.error('Error - ipfs files cat', err)
+			}
+			mediatype = "image/"
+			switch ( index.cover.substr(index.cover.lastIndexOf('.') + 1) ) {
+				case 'png':
+					mediatype += "png"
+				case 'gif':
+					mediatype += "gif"
+				case 'jpg':
+				case 'jpeg':
+					mediatype += "jpeg"
+				default:
+					mediatype = ""
+			}
+			callback( "data:" + mediatype + ";base64," + data.toString('base64') )
+		})
+	}
+}

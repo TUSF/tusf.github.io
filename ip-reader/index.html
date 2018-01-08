@@ -35,19 +35,40 @@
           document.getElementById("type").innerHTML = index.type ? index.type : ""
           document.getElementById("status").innerHTML = index.status ? index.status : ""
           document.getElementById("description").innerHTML = index.desc ? index.desc : ""
-          document.getElementById("coverimg").innerHTML = index.coverdata ? "<img src='" + index.coverdata + "' />" : ""
 
-          altnames = ""
+          altnames = document.createElement("ul")
           for( var i = 0; i < index.alt_names.length; i++ ) {
-            altnames += "<li>" + index.alt_names[i] + "</li>"
+            altnames.innerHTML += "<li>" + index.alt_names[i] + "</li>"
           }
-          document.getElementById("altnames").innerHTML = "<ul>" + altnames + "</ul>"
+          document.getElementById("altnames").appendChild(altnames)
 
-          genres = ""
+          genres = document.createElement("ul")
           for( var i = 0; i < index.genres.length; i++ ) {
-            genres += "<li>" + index.genres[i] + "</li>"
+            genres.innerHTML += "<li>" + index.genres[i] + "</li>"
           }
-          document.getElementById("genres").innerHTML = "<ul>" + genres + "</ul>"
+          document.getElementById("genres").appendChild(genres)
+
+          getImage(hash + "/" + index.cover, function(image) {
+            img = document.createElement("img")
+            img.src = image
+            document.getElementById("coverimg").appendChild(img)
+          }
+
+          node.files.cat(hash+"/toc.json", function(err, data) {
+            chaps = document.getElementbyId("chapters")
+            chapters = JSON.parse(data)
+            for( var i = 0; i < chapters.length; i++ ) {
+              item = document.createElement("li")
+              chap = document.createElement("a")
+              chap.innerText = chapters[i].title
+              chap.addEventListener("click", function() {
+                getChapter(hash, chapters[i].folder)
+              })
+
+              item.appendChild(chap)
+              chaps.appendChild(item)
+            }
+          })
 
           console.log('Online status: online')
           document.body.classList.remove("loading")
@@ -66,7 +87,7 @@
     body.online #reader { display: shown; }
 
     #reader .metadata .sect { font-weight: bold; }
-    .metadata .coverimg img {
+    .metadata #coverimg img {
       max-width: 500px;
     }
     
@@ -107,7 +128,7 @@
         <td id="description">&nbsp;</td>
       </tr>
     </table>
-    <ul class="chapters">
+    <ul id="chapters">
     </ul>
   </div>
 </body>
