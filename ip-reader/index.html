@@ -27,16 +27,14 @@
         // index.json should contain a single object with metadata about the given series.
         // toc.json should contain a list of all chapters (in order), with metadata on each chapter.
 
-	getIndex(hash, function(data) {
-          index = JSON.parse(data.toString())
-          console.log(data.toString())
+	getIndex(hash, function(index) {
+          console.log(index)
           document.getElementById("title").innerHTML = index.name
           document.getElementById("author").innerHTML = index.author
           document.getElementById("artist").innerHTML = index.artist
           document.getElementById("type").innerHTML = index.type
           document.getElementById("status").innerHTML = index.status
           document.getElementById("description").innerHTML = index.description
-          document.getElementById("coverimg").innerHTML = "<img src='" + index.cover + "' />"
 
           altnames = ""
           for( var i = 0; i < index.alt_names.length; i++ ) {
@@ -49,6 +47,9 @@
             genres += "<li>" + index.genres[i] + "</li>"
           }
           document.getElementById("genres").innerHTML = "<ul>" + genres + "</ul>"
+
+          getCover(hash, index.cover)
+          document.getElementById("coverimg").innerHTML = "<img src='" + index.coverdata + "' />"
 
           console.log('Online status: online')
           document.body.classList.remove("loading")
