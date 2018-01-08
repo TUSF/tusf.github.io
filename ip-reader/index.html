@@ -55,7 +55,7 @@
           })
 
           node.files.cat(hash+"/toc.json", function(err, data) {
-            chaps = document.getElementbyId("chapters")
+            chaps = document.getElementById("chapters")
             chapters = JSON.parse(data)
             for( var i = 0; i < chapters.length; i++ ) {
               item = document.createElement("li")
