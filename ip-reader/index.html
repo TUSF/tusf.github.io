@@ -12,7 +12,21 @@
         hash = window.location.hash.substr(1)
         ipfs.swarm.peers().then(a => console.log(a))
 
-        node.files.cat(hash, function(err,date) {
+        // Load the index within the hash.
+        // The structure of a manga series should go something like this:
+
+        // manga/
+        //   Ch1/
+        //     001.jpg
+        //     ...
+        //   Ch2/
+        //   index.json
+        //   toc.json
+        //   cover.jpg
+
+        // index.json should contain a single object with metadata about the given series.
+        // toc.json should contain a list of all chapters (in order), with metadata on each chapter.
+        node.files.cat(hash + "/index.json", function(err,date) {
           if(err) {
             return console.error('Error - ipfs files cat', err, res)
           }
