@@ -6,81 +6,6 @@
   <script src="https://unpkg.com/ipfs/dist/index.min.js"></script>
   <script src="reader.js"></script>
 
-  <script type="text/javascript">
-    const node = new Ipfs({ repo: 'ipfs-' + Math.random() })
-    node.once('ready', () => {
-      if( window.location.hash.length > 1 ) {
-        hash = window.location.hash.substr(1)
-
-        // Load the index within the hash.
-        // The structure of a manga series should go something like this:
-
-        // manga/
-        //   Ch1/
-        //     001.jpg
-        //     ...
-        //   Ch2/
-        //   index.json
-        //   toc.json
-        //   cover.jpg
-
-        // index.json should contain a single object with metadata about the given series.
-        // toc.json should contain a list of all chapters (in order), with metadata on each chapter.
-
-	getIndex(hash, function(index) {
-          console.log(index)
-          document.getElementById("title").innerHTML = index.name ? index.name : ""
-          document.getElementById("author").innerHTML = index.author ? index.author : ""
-          document.getElementById("artist").innerHTML = index.artist ? index.artist : ""
-          document.getElementById("type").innerHTML = index.type ? index.type : ""
-          document.getElementById("status").innerHTML = index.status ? index.status : ""
-          document.getElementById("description").innerHTML = index.desc ? index.desc : ""
-
-          altnames = document.createElement("ul")
-          for( var i = 0; i < index.alt_names.length; i++ ) {
-            altnames.innerHTML += "<li>" + index.alt_names[i] + "</li>"
-          }
-          document.getElementById("altnames").appendChild(altnames)
-
-          genres = document.createElement("ul")
-          for( var i = 0; i < index.genres.length; i++ ) {
-            genres.innerHTML += "<li>" + index.genres[i] + "</li>"
-          }
-          document.getElementById("genres").appendChild(genres)
-
-          getImage(hash + "/" + index.cover, function(image) {
-            img = document.createElement("img")
-            img.src = image
-            document.getElementById("coverimg").appendChild(img)
-          })
-
-          node.files.cat(hash+"/toc.json", function(err, data) {
-            chaps = document.getElementById("chapters")
-            chapters = JSON.parse(data)
-            for( var i = 0; i < chapters.length; i++ ) {
-              item = document.createElement("li")
-              chap = document.createElement("a")
-              chap.innerText = chapters[i].title
-              chap.addEventListener("click", function() {
-                getChapter(hash, chapters[i].folder)
-              })
-
-              item.appendChild(chap)
-              chaps.appendChild(item)
-            }
-          })
-
-          console.log('Online status: online')
-          document.body.classList.remove("loading")
-          document.body.classList.add("online")
-        })
-      } else {
-        console.log('Online status: offline')
-        document.getElementById("status").innerHTML= 'Node status: offline'
-        node.stop().then()
-      }
-    })
-  </script>
   <style>
     body.online #status { display: none; }
     body.loading #reader, body.offline #reader { display: none; }
@@ -94,7 +19,7 @@
   </style>
 </head>
 <body class="loading">
-  <h1 id="status">loading…</h1>
+  <h1 id="status">Loading…</h1>
   <div id="reader">
     <h2 id="title"></h2>
     <table class="metadata">
