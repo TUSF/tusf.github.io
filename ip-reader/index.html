@@ -8,7 +8,7 @@
   <script type="text/javascript">
     const node = new Ipfs({ repo: 'ipfs-' + Math.random() })
     node.once('ready', () => {
-      if( window.location.hash > 1 ) {
+      if( window.location.hash.length > 1 ) {
         hash = window.location.hash.substr(1)
 
         // Load the index within the hash.
