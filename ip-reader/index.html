@@ -4,6 +4,7 @@
 
   <!-- Load IPFS. -->
   <script src="https://unpkg.com/ipfs/dist/index.min.js"></script>
+  <script src="reader.js"></script>
 
   <script type="text/javascript">
     const node = new Ipfs({ repo: 'ipfs-' + Math.random() })
@@ -25,16 +26,33 @@
 
         // index.json should contain a single object with metadata about the given series.
         // toc.json should contain a list of all chapters (in order), with metadata on each chapter.
-        node.files.cat(hash + "/index.json", function(err, data) {
-          if(err) {
-            return console.error('Error - ipfs files cat', err, res)
-          }
-          console.log(data)
-          console.log(data.toString())
 
-          node.swarm.peers().then(a => console.log(a))
-          console.log('Online status: offline')
-          document.body.classList += "online"
+	getIndex(hash, function(data) {
+          index = JSON.parse(data.toString())
+          console.log(data.toString())
+          document.getElementById("title").innerHTML = index.name
+          document.getElementById("author").innerHTML = index.author
+          document.getElementById("artist").innerHTML = index.artist
+          document.getElementById("type").innerHTML = index.type
+          document.getElementById("status").innerHTML = index.status
+          document.getElementById("description").innerHTML = index.description
+          document.getElementById("coverimg").innerHTML = "<img src='" + index.cover + "' />"
+
+          altnames = ""
+          for( var i = 0; i < index.alt_names.length; i++ ) {
+            altnames += "<li>" + index.alt_names[i] + "</li>"
+          }
+          document.getElementById("altnames").innerHTML = "<ul>" + altnames + "</ul>"
+
+          genres = ""
+          for( var i = 0; i < index.genres; i++ ) {
+            genres += "<li>" + index.genres[i] + "</li>"
+          }
+          document.getElementById("genres").innerHTML = "<ul>" + genres + "</ul>"
+
+          console.log('Online status: online')
+          document.body.classList.remove("loading")
+          document.body.classList.add("online")
         })
       } else {
         console.log('Online status: offline')
@@ -44,14 +62,50 @@
   </script>
   <style>
     body.online #status { display: none; }
-    body #reader { display: none; }
+    body.loading #reader, body.offline #reader { display: none; }
     body.online #reader { display: shown; }
+
+    #reader .metadata .sect { font-weight: bold; }
+    
   </style>
 </head>
-<body>
+<body class="loading">
   <h1 id="status">loading…</h1>
   <div id="reader">
-    <h1>Online</h1>
+    <h2 id="title"></h2>
+    <table class="metadata">
+      <tr>
+        <td class="sect">Alt Names</td>
+        <td id="altnames">&nbsp;</td>
+        <td id="coverimg" rowspan="7"></td>
+      </tr>
+      <tr>
+        <td class="sect">Author</td>
+        <td id="author">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="sect">Artist</td>
+        <td id="artist">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="sect">Genres</td>
+        <td id="genres">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="sect">Type</td>
+        <td id="type">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="sect">Status</td>
+        <td id="status">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="sect">Description</td>
+        <td id="description">&nbsp;</td>
+      </tr>
+    </table>
+    <ul class="chapters">
+    </ul>
   </div>
 </body>
 </html>
