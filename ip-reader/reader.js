@@ -29,7 +29,7 @@ function getIndex(hash, callback) {
 }
 
 function getImage(hash, callback) {
-	if typeof hash === "string" && typeof callback === "function" ) {
+	if (typeof hash === "string" && typeof callback === "function" ) {
 		node.files.cat(hash, function(err, data) {
 			if(err) {
 				return console.error('Error - ipfs files cat', err)
@@ -49,4 +49,7 @@ function getImage(hash, callback) {
 			callback( "data:" + mediatype + ";base64," + data.toString('base64') )
 		})
 	}
+}
+
+function getChapter(hash, folder) {
 }

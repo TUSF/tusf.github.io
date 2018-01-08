@@ -52,7 +52,7 @@
             img = document.createElement("img")
             img.src = image
             document.getElementById("coverimg").appendChild(img)
-          }
+          })
 
           node.files.cat(hash+"/toc.json", function(err, data) {
             chaps = document.getElementbyId("chapters")
