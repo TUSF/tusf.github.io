@@ -1,4 +1,3 @@
-//	Take stdin as a number, output it as dozenal.
 package main
 
 import (
@@ -7,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/TUSF/dozenal"
+	"github.com/TUSF/base/dozenal"
 	"honnef.co/go/js/dom"
 )
 

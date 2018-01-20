@@ -25281,15 +25281,19 @@ $packages["math/big"] = (function() {
 	$pkg.$init = $init;
 	return $pkg;
 })();
-$packages["github.com/TUSF/dozenal"] = (function() {
-	var $pkg = {}, $init, big, Formatter, sliceType, ptrType, sliceType$1, ptrType$1, zero, dozen, NewFormatter;
+$packages["github.com/TUSF/base"] = (function() {
+	var $pkg = {}, $init, big, Formatter, sliceType, ptrType, sliceType$1, ptrType$1, zero, NewFormatter;
 	big = $packages["math/big"];
-	Formatter = $pkg.Formatter = $newType(0, $kindStruct, "dozenal.Formatter", true, "github.com/TUSF/dozenal", true, function(digits_) {
+	Formatter = $pkg.Formatter = $newType(0, $kindStruct, "base.Formatter", true, "github.com/TUSF/base", true, function(base_, bbase_, digits_) {
 		this.$val = this;
 		if (arguments.length === 0) {
+			this.base = 0;
+			this.bbase = ptrType.nil;
 			this.digits = sliceType.nil;
 			return;
 		}
+		this.base = base_;
+		this.bbase = bbase_;
 		this.digits = digits_;
 	});
 	sliceType = $sliceType($String);
@@ -25297,10 +25301,11 @@ $packages["github.com/TUSF/dozenal"] = (function() {
 	sliceType$1 = $sliceType(ptrType);
 	ptrType$1 = $ptrType(big.Rat);
 	NewFormatter = function(slice) {
-		var n, slice;
-		n = $makeSlice(sliceType, 12);
+		var b, n, slice;
+		b = slice.$length;
+		n = $makeSlice(sliceType, b);
 		$copySlice(n, slice);
-		return new Formatter.ptr(n);
+		return new Formatter.ptr(b, big.NewInt((new $Int64(0, b))), n);
 	};
 	$pkg.NewFormatter = NewFormatter;
 	Formatter.ptr.prototype.Int64 = function(n) {
@@ -25313,9 +25318,9 @@ $packages["github.com/TUSF/dozenal"] = (function() {
 		str = "";
 		while (true) {
 			if (!(!((n.$high === 0 && n.$low === 0)))) { break; }
-			rem = $div64(n, new $Int64(0, 12), true);
+			rem = $div64(n, (new $Int64(0, z.base)), true);
 			str = (x = z.digits, (($flatten64(rem) < 0 || $flatten64(rem) >= x.$length) ? ($throwRuntimeError("index out of range"), undefined) : x.$array[x.$offset + $flatten64(rem)])) + str;
-			n = $div64(n, (new $Int64(0, 12)), false);
+			n = $div64(n, ((new $Int64(0, z.base))), false);
 		}
 		if (negative) {
 			str = "-" + str;
@@ -25332,9 +25337,9 @@ $packages["github.com/TUSF/dozenal"] = (function() {
 		str = "";
 		while (true) {
 			if (!(!((n.$high === 0 && n.$low === 0)))) { break; }
-			rem = $div64(n, new $Uint64(0, 12), true);
+			rem = $div64(n, (new $Uint64(0, z.base)), true);
 			str = (x = z.digits, (($flatten64(rem) < 0 || $flatten64(rem) >= x.$length) ? ($throwRuntimeError("index out of range"), undefined) : x.$array[x.$offset + $flatten64(rem)])) + str;
-			n = $div64(n, (new $Uint64(0, 12)), false);
+			n = $div64(n, ((new $Uint64(0, z.base))), false);
 		}
 		return str;
 	};
@@ -25353,7 +25358,7 @@ $packages["github.com/TUSF/dozenal"] = (function() {
 		m = new big.Int.ptr(false, big.nat.nil);
 		/* while (true) { */ case 1:
 			/* if (!(!((d.Cmp(zero) === 0)))) { break; } */ if(!(!((d.Cmp(zero) === 0)))) { $s = 2; continue; }
-			_r = d.DivMod(d, dozen, m); /* */ $s = 3; case 3: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
+			_r = d.DivMod(d, z.bbase, m); /* */ $s = 3; case 3: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
 			_r;
 			str = (x = z.digits, x$1 = (((x$2 = m.Int64(), x$2.$low + ((x$2.$high >> 31) * 4294967296)) >> 0)), ((x$1 < 0 || x$1 >= x.$length) ? ($throwRuntimeError("index out of range"), undefined) : x.$array[x.$offset + x$1])) + str;
 		/* } */ $s = 1; continue; case 2:
@@ -25365,8 +25370,8 @@ $packages["github.com/TUSF/dozenal"] = (function() {
 	};
 	Formatter.prototype.BigInt = function(i) { return this.$val.BigInt(i); };
 	Formatter.ptr.prototype.BigRat = function(i) {
-		var _i, _r, _r$1, _r$2, _r$3, _r$4, _r$5, _ref, _tuple, d, frac, i, i$1, pseq, q, rem, rem$1, repeat, rseq, v, z, $s, $r;
-		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; _i = $f._i; _r = $f._r; _r$1 = $f._r$1; _r$2 = $f._r$2; _r$3 = $f._r$3; _r$4 = $f._r$4; _r$5 = $f._r$5; _ref = $f._ref; _tuple = $f._tuple; d = $f.d; frac = $f.frac; i = $f.i; i$1 = $f.i$1; pseq = $f.pseq; q = $f.q; rem = $f.rem; rem$1 = $f.rem$1; repeat = $f.repeat; rseq = $f.rseq; v = $f.v; z = $f.z; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		var _entry, _i, _key, _r, _r$1, _r$2, _r$3, _r$4, _r$5, _r$6, _r$7, _ref, _tuple, _tuple$1, d, frac, i, it, it$1, ok, pseq, q, r, rem, rem$1, repeat, rseq, v, z, $s, $r;
+		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; _entry = $f._entry; _i = $f._i; _key = $f._key; _r = $f._r; _r$1 = $f._r$1; _r$2 = $f._r$2; _r$3 = $f._r$3; _r$4 = $f._r$4; _r$5 = $f._r$5; _r$6 = $f._r$6; _r$7 = $f._r$7; _ref = $f._ref; _tuple = $f._tuple; _tuple$1 = $f._tuple$1; d = $f.d; frac = $f.frac; i = $f.i; it = $f.it; it$1 = $f.it$1; ok = $f.ok; pseq = $f.pseq; q = $f.q; r = $f.r; rem = $f.rem; rem$1 = $f.rem$1; repeat = $f.repeat; rseq = $f.rseq; v = $f.v; z = $f.z; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
 		z = this;
 		/* */ if (i.IsInt()) { $s = 1; continue; }
 		/* */ $s = 2; continue;
@@ -25385,83 +25390,72 @@ $packages["github.com/TUSF/dozenal"] = (function() {
 			$s = -1; return _r$2;
 		/* } else { */ case 6:
 			pseq = sliceType$1.nil;
-			rseq = sliceType$1.nil;
-			repeat = 0;
+			rseq = {};
+			repeat = -1;
+			it = 0;
 			/* while (true) { */ case 9:
-				rem.Mul(rem, dozen);
+				/* if (!(it < 2147483647)) { break; } */ if(!(it < 2147483647)) { $s = 10; continue; }
+				rem.Mul(rem, z.bbase);
 				_r$3 = new big.Int.ptr(false, big.nat.nil).DivMod(rem, i.Denom(), rem); /* */ $s = 11; case 11: if($c) { $c = false; _r$3 = _r$3.$blk(); } if (_r$3 && _r$3.$blk !== undefined) { break s; }
 				_tuple = _r$3;
 				d = _tuple[0];
 				rem$1 = _tuple[1];
-				pseq = $append(pseq, new big.Int.ptr(false, big.nat.nil).Set(d));
-				rseq = $append(rseq, new big.Int.ptr(false, big.nat.nil).Set(rem$1));
-				if (rem$1.Cmp(zero) === 0) {
-					repeat = -1;
+				/* */ if (rem$1.Cmp(zero) === 0) { $s = 12; continue; }
+				/* */ $s = 13; continue;
+				/* if (rem$1.Cmp(zero) === 0) { */ case 12:
+					pseq = $append(pseq, new big.Int.ptr(false, big.nat.nil).Set(d));
 					/* break; */ $s = 10; continue;
-				} else {
-					repeat = $clone(z, Formatter).repeats(rseq);
-					if (repeat > -1) {
-						pseq = $subslice(pseq, 0, (pseq.$length - 1 >> 0));
-						rseq = $subslice(rseq, 0, (rseq.$length - 1 >> 0));
+					$s = 14; continue;
+				/* } else { */ case 13:
+					_r$4 = rem$1.String(); /* */ $s = 15; case 15: if($c) { $c = false; _r$4 = _r$4.$blk(); } if (_r$4 && _r$4.$blk !== undefined) { break s; }
+					_tuple$1 = (_entry = rseq[$String.keyFor(_r$4)], _entry !== undefined ? [_entry.v, true] : [0, false]);
+					r = _tuple$1[0];
+					ok = _tuple$1[1];
+					/* */ if (ok) { $s = 16; continue; }
+					/* */ $s = 17; continue;
+					/* if (ok) { */ case 16:
+						repeat = r;
 						/* break; */ $s = 10; continue;
-					}
-				}
+						$s = 18; continue;
+					/* } else { */ case 17:
+						pseq = $append(pseq, new big.Int.ptr(false, big.nat.nil).Set(d));
+						_r$5 = rem$1.String(); /* */ $s = 19; case 19: if($c) { $c = false; _r$5 = _r$5.$blk(); } if (_r$5 && _r$5.$blk !== undefined) { break s; }
+						_key = _r$5; (rseq || $throwRuntimeError("assignment to entry in nil map"))[$String.keyFor(_key)] = { k: _key, v: it };
+					/* } */ case 18:
+				/* } */ case 14:
+				it = it + (1) >> 0;
 			/* } */ $s = 9; continue; case 10:
 			frac = "";
 			_ref = pseq;
 			_i = 0;
-			/* while (true) { */ case 12:
-				/* if (!(_i < _ref.$length)) { break; } */ if(!(_i < _ref.$length)) { $s = 13; continue; }
-				i$1 = _i;
+			/* while (true) { */ case 20:
+				/* if (!(_i < _ref.$length)) { break; } */ if(!(_i < _ref.$length)) { $s = 21; continue; }
+				it$1 = _i;
 				v = ((_i < 0 || _i >= _ref.$length) ? ($throwRuntimeError("index out of range"), undefined) : _ref.$array[_ref.$offset + _i]);
-				if (i$1 === repeat) {
+				if (it$1 === repeat) {
 					frac = frac + ("[");
 				}
-				_r$4 = $clone(z, Formatter).BigInt(v); /* */ $s = 14; case 14: if($c) { $c = false; _r$4 = _r$4.$blk(); } if (_r$4 && _r$4.$blk !== undefined) { break s; }
-				frac = frac + (_r$4);
+				_r$6 = $clone(z, Formatter).BigInt(v); /* */ $s = 22; case 22: if($c) { $c = false; _r$6 = _r$6.$blk(); } if (_r$6 && _r$6.$blk !== undefined) { break s; }
+				frac = frac + (_r$6);
 				_i++;
-			/* } */ $s = 12; continue; case 13:
+			/* } */ $s = 20; continue; case 21:
 			if (repeat > -1) {
 				frac = frac + ("]");
 			}
-			_r$5 = $clone(z, Formatter).BigInt(q); /* */ $s = 15; case 15: if($c) { $c = false; _r$5 = _r$5.$blk(); } if (_r$5 && _r$5.$blk !== undefined) { break s; }
-			$s = -1; return _r$5 + ";" + frac;
+			_r$7 = $clone(z, Formatter).BigInt(q); /* */ $s = 23; case 23: if($c) { $c = false; _r$7 = _r$7.$blk(); } if (_r$7 && _r$7.$blk !== undefined) { break s; }
+			$s = -1; return _r$7 + ";" + frac;
 		/* } */ case 7:
 		$s = -1; return "";
-		/* */ } return; } if ($f === undefined) { $f = { $blk: Formatter.ptr.prototype.BigRat }; } $f._i = _i; $f._r = _r; $f._r$1 = _r$1; $f._r$2 = _r$2; $f._r$3 = _r$3; $f._r$4 = _r$4; $f._r$5 = _r$5; $f._ref = _ref; $f._tuple = _tuple; $f.d = d; $f.frac = frac; $f.i = i; $f.i$1 = i$1; $f.pseq = pseq; $f.q = q; $f.rem = rem; $f.rem$1 = rem$1; $f.repeat = repeat; $f.rseq = rseq; $f.v = v; $f.z = z; $f.$s = $s; $f.$r = $r; return $f;
+		/* */ } return; } if ($f === undefined) { $f = { $blk: Formatter.ptr.prototype.BigRat }; } $f._entry = _entry; $f._i = _i; $f._key = _key; $f._r = _r; $f._r$1 = _r$1; $f._r$2 = _r$2; $f._r$3 = _r$3; $f._r$4 = _r$4; $f._r$5 = _r$5; $f._r$6 = _r$6; $f._r$7 = _r$7; $f._ref = _ref; $f._tuple = _tuple; $f._tuple$1 = _tuple$1; $f.d = d; $f.frac = frac; $f.i = i; $f.it = it; $f.it$1 = it$1; $f.ok = ok; $f.pseq = pseq; $f.q = q; $f.r = r; $f.rem = rem; $f.rem$1 = rem$1; $f.repeat = repeat; $f.rseq = rseq; $f.v = v; $f.z = z; $f.$s = $s; $f.$r = $r; return $f;
 	};
 	Formatter.prototype.BigRat = function(i) { return this.$val.BigRat(i); };
-	Formatter.ptr.prototype.repeats = function(rems) {
-		var _i, _ref, i, l, rems, z;
-		z = this;
-		l = rems.$length - 1 >> 0;
-		_ref = rems;
-		_i = 0;
-		while (true) {
-			if (!(_i < _ref.$length)) { break; }
-			i = _i;
-			if (i === l) {
-				break;
-			}
-			if (((l < 0 || l >= rems.$length) ? ($throwRuntimeError("index out of range"), undefined) : rems.$array[rems.$offset + l]).Cmp(((i < 0 || i >= rems.$length) ? ($throwRuntimeError("index out of range"), undefined) : rems.$array[rems.$offset + i])) === 0) {
-				return i;
-			}
-			_i++;
-		}
-		return -1;
-	};
-	Formatter.prototype.repeats = function(rems) { return this.$val.repeats(rems); };
-	Formatter.methods = [{prop: "Int64", name: "Int64", pkg: "", typ: $funcType([$Int64], [$String], false)}, {prop: "UInt64", name: "UInt64", pkg: "", typ: $funcType([$Uint64], [$String], false)}, {prop: "BigInt", name: "BigInt", pkg: "", typ: $funcType([ptrType], [$String], false)}, {prop: "BigRat", name: "BigRat", pkg: "", typ: $funcType([ptrType$1], [$String], false)}, {prop: "repeats", name: "repeats", pkg: "github.com/TUSF/dozenal", typ: $funcType([sliceType$1], [$Int], false)}];
-	Formatter.init("github.com/TUSF/dozenal", [{prop: "digits", name: "digits", anonymous: false, exported: false, typ: sliceType, tag: ""}]);
+	Formatter.methods = [{prop: "Int64", name: "Int64", pkg: "", typ: $funcType([$Int64], [$String], false)}, {prop: "UInt64", name: "UInt64", pkg: "", typ: $funcType([$Uint64], [$String], false)}, {prop: "BigInt", name: "BigInt", pkg: "", typ: $funcType([ptrType], [$String], false)}, {prop: "BigRat", name: "BigRat", pkg: "", typ: $funcType([ptrType$1], [$String], false)}];
+	Formatter.init("github.com/TUSF/base", [{prop: "base", name: "base", anonymous: false, exported: false, typ: $Int, tag: ""}, {prop: "bbase", name: "bbase", anonymous: false, exported: false, typ: ptrType, tag: ""}, {prop: "digits", name: "digits", anonymous: false, exported: false, typ: sliceType, tag: ""}]);
 	$init = function() {
 		$pkg.$init = function() {};
 		/* */ var $f, $c = false, $s = 0, $r; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
 		$r = big.$init(); /* */ $s = 1; case 1: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		zero = big.NewInt(new $Int64(0, 0));
-		dozen = big.NewInt(new $Int64(0, 12));
-		$pkg.ASCII = $clone(NewFormatter(new sliceType(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X", "E"])), Formatter);
-		$pkg.Amer = $clone(NewFormatter(new sliceType(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "\xCE\xA7", "\xC6\x90"])), Formatter);
-		$pkg.Brit = $clone(NewFormatter(new sliceType(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "\xE2\x86\x8A", "\xE2\x86\x8B"])), Formatter);
 		/* */ } return; } if ($f === undefined) { $f = { $blk: $init }; } $f.$s = $s; $f.$r = $r; return $f;
 	};
 	$pkg.$init = $init;
@@ -31115,16 +31109,17 @@ $packages["honnef.co/go/js/dom"] = (function() {
 	return $pkg;
 })();
 $packages["main"] = (function() {
-	var $pkg = {}, $init, fmt, dozenal, dom, big, strconv, strings, ptrType, ptrType$1, sliceType, main, convert;
+	var $pkg = {}, $init, fmt, base, dom, big, strconv, strings, sliceType, ptrType, ptrType$1, sliceType$1, sex, main, convert;
 	fmt = $packages["fmt"];
-	dozenal = $packages["github.com/TUSF/dozenal"];
+	base = $packages["github.com/TUSF/base"];
 	dom = $packages["honnef.co/go/js/dom"];
 	big = $packages["math/big"];
 	strconv = $packages["strconv"];
 	strings = $packages["strings"];
+	sliceType = $sliceType($String);
 	ptrType = $ptrType(dom.HTMLInputElement);
 	ptrType$1 = $ptrType(dom.KeyboardEvent);
-	sliceType = $sliceType($emptyInterface);
+	sliceType$1 = $sliceType($emptyInterface);
 	main = function() {
 		var _r, _r$1, _r$2, document, input, output, $s, $r;
 		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; _r = $f._r; _r$1 = $f._r$1; _r$2 = $f._r$2; document = $f.document; input = $f.input; output = $f.output; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
@@ -31167,7 +31162,7 @@ $packages["main"] = (function() {
 		/* */ if (t) { $s = 3; continue; }
 		/* */ $s = 4; continue;
 		/* if (t) { */ case 3:
-			_r$2 = $clone(dozenal.Amer, dozenal.Formatter).BigInt(INT$1); /* */ $s = 6; case 6: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
+			_r$2 = $clone(sex, base.Formatter).BigInt(INT$1); /* */ $s = 6; case 6: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
 			$s = -1; return _r$2;
 		/* } else { */ case 4:
 			_r$3 = RAT.SetString(s); /* */ $s = 7; case 7: if($c) { $c = false; _r$3 = _r$3.$blk(); } if (_r$3 && _r$3.$blk !== undefined) { break s; }
@@ -31177,7 +31172,7 @@ $packages["main"] = (function() {
 			/* */ if (t$1) { $s = 8; continue; }
 			/* */ $s = 9; continue;
 			/* if (t$1) { */ case 8:
-				_r$4 = $clone(dozenal.Amer, dozenal.Formatter).BigRat(RAT$1); /* */ $s = 11; case 11: if($c) { $c = false; _r$4 = _r$4.$blk(); } if (_r$4 && _r$4.$blk !== undefined) { break s; }
+				_r$4 = $clone(sex, base.Formatter).BigRat(RAT$1); /* */ $s = 11; case 11: if($c) { $c = false; _r$4 = _r$4.$blk(); } if (_r$4 && _r$4.$blk !== undefined) { break s; }
 				$s = -1; return _r$4;
 			/* } else { */ case 9:
 				/* */ if (strings.Index(s, ".") > -1) { $s = 12; continue; }
@@ -31213,7 +31208,7 @@ $packages["main"] = (function() {
 							if (!t$2) {
 								$s = -1; return "Not a valid number. Integers, Fractions or Decimals only.";
 							}
-							_r$6 = fmt.Sprintf("%s/1%s", new sliceType([new $String((1 >= nums.$length ? ($throwRuntimeError("index out of range"), undefined) : nums.$array[nums.$offset + 1])), new $String(strings.Repeat("0", nums.$length))])); /* */ $s = 22; case 22: if($c) { $c = false; _r$6 = _r$6.$blk(); } if (_r$6 && _r$6.$blk !== undefined) { break s; }
+							_r$6 = fmt.Sprintf("%s/1%s", new sliceType$1([new $String((1 >= nums.$length ? ($throwRuntimeError("index out of range"), undefined) : nums.$array[nums.$offset + 1])), new $String(strings.Repeat("0", nums.$length))])); /* */ $s = 22; case 22: if($c) { $c = false; _r$6 = _r$6.$blk(); } if (_r$6 && _r$6.$blk !== undefined) { break s; }
 							_r$7 = new big.Rat.ptr(new big.Int.ptr(false, big.nat.nil), new big.Int.ptr(false, big.nat.nil)).SetString(_r$6); /* */ $s = 23; case 23: if($c) { $c = false; _r$7 = _r$7.$blk(); } if (_r$7 && _r$7.$blk !== undefined) { break s; }
 							_tuple$5 = _r$7;
 							d = _tuple$5[0];
@@ -31223,7 +31218,7 @@ $packages["main"] = (function() {
 							}
 							_r$8 = RAT$2.Add(RAT$2, d); /* */ $s = 24; case 24: if($c) { $c = false; _r$8 = _r$8.$blk(); } if (_r$8 && _r$8.$blk !== undefined) { break s; }
 							_r$8;
-							_r$9 = $clone(dozenal.Amer, dozenal.Formatter).BigRat(RAT$2); /* */ $s = 25; case 25: if($c) { $c = false; _r$9 = _r$9.$blk(); } if (_r$9 && _r$9.$blk !== undefined) { break s; }
+							_r$9 = $clone(sex, base.Formatter).BigRat(RAT$2); /* */ $s = 25; case 25: if($c) { $c = false; _r$9 = _r$9.$blk(); } if (_r$9 && _r$9.$blk !== undefined) { break s; }
 							$s = -1; return _r$9;
 						/* } */ case 20:
 						$s = 17; continue;
@@ -31243,11 +31238,12 @@ $packages["main"] = (function() {
 		$pkg.$init = function() {};
 		/* */ var $f, $c = false, $s = 0, $r; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
 		$r = fmt.$init(); /* */ $s = 1; case 1: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
-		$r = dozenal.$init(); /* */ $s = 2; case 2: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		$r = base.$init(); /* */ $s = 2; case 2: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		$r = dom.$init(); /* */ $s = 3; case 3: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		$r = big.$init(); /* */ $s = 4; case 4: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		$r = strconv.$init(); /* */ $s = 5; case 5: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		$r = strings.$init(); /* */ $s = 6; case 6: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		sex = $clone(base.NewFormatter(new sliceType(["0", "1", "2", "3", "4", "5"])), base.Formatter);
 		/* */ if ($pkg === $mainPkg) { $s = 7; continue; }
 		/* */ $s = 8; continue;
 		/* if ($pkg === $mainPkg) { */ case 7:
@@ -31266,4 +31262,4 @@ $go($mainPkg.$init, []);
 $flushConsole();
 
 }).call(this);
-//# sourceMappingURL=dec2doz.js.map
+//# sourceMappingURL=seximal.js.map
