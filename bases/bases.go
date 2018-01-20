@@ -6,14 +6,21 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/TUSF/base"
 	"github.com/TUSF/base/dozenal"
 	"honnef.co/go/js/dom"
 )
+
+var BAS base.Formatter
+
+var sex base.Formatter = base.NewFormatter([]string{"0", "1", "2", "3", "4", "5"})
 
 func main() {
 	document := dom.GetWindow().Document()
 	input := document.GetElementByID("input").(*dom.HTMLInputElement)
 	output := document.GetElementByID("output")
+	options := document.GetElementByID("base").(*dom.HTMLSelectElement)
+	BAS = dozenal.ASCII
 
 	input.AddEventListener("keydown", false, func(e dom.Event) {
 		ke := e.(*dom.KeyboardEvent)
@@ -21,6 +28,19 @@ func main() {
 			output.SetTextContent(convert(input.Value))
 			ke.PreventDefault()
 		}
+	})
+	options.AddEventListener("change", false, func(e dom.Event) {
+		switch options.Value {
+		case "sex":
+			BAS = sex
+		case "dozascii":
+			BAS = dozenal.ASCII
+		case "dozamer":
+			BAS = dozenal.Amer
+		case "dozbrit":
+			BAS = dozenal.Brit
+		}
+		output.SetTextContent(convert(input.Value))
 	})
 }
 
@@ -32,11 +52,11 @@ func convert(s string) string {
 
 	if INT, t := INT.SetString(s, 0); t {
 		//First, assume it's a plain integer.
-		return dozenal.Amer.BigInt(INT)
+		return BAS.BigInt(INT)
 
 	} else if RAT, t := RAT.SetString(s); t {
 		//Second, assume it's a fraction. ("12/7")
-		return dozenal.Amer.BigRat(RAT)
+		return BAS.BigRat(RAT)
 
 	} else {
 		//Third, assume it's a decimal number. ("10.123")
@@ -55,13 +75,6 @@ func convert(s string) string {
 					if _, err := strconv.Atoi(nums[1]); err != nil {
 						return "Not a valid number. Integers, Fractions or Decimals only."
 					}
-
-					// 1.123 = 1 + 123/1000
-					// So, treat everything before the point as an integer
-					// then feed the number after the point, divided by the next power of 10.
-					//
-					// Of course, once you convert it into dozenal, even a simple decimal like that becomes huge.
-					// "1.123" becomes 1;15[…], followed by an infinitely repeating sequence of 50+ digits
 					RAT, t := RAT.SetString(nums[0])
 					if !t {
 						return "Not a valid number. Integers, Fractions or Decimals only."
@@ -73,7 +86,7 @@ func convert(s string) string {
 						return "Not a valid number. Integers, Fractions or Decimals only."
 					}
 					RAT.Add(RAT, d)
-					return dozenal.Amer.BigRat(RAT)
+					return BAS.BigRat(RAT)
 				}
 			} else {
 				return "Not a valid number. Integers, Fractions or Decimals only."

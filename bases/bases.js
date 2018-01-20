@@ -25461,6 +25461,22 @@ $packages["github.com/TUSF/base"] = (function() {
 	$pkg.$init = $init;
 	return $pkg;
 })();
+$packages["github.com/TUSF/base/dozenal"] = (function() {
+	var $pkg = {}, $init, base, sliceType;
+	base = $packages["github.com/TUSF/base"];
+	sliceType = $sliceType($String);
+	$init = function() {
+		$pkg.$init = function() {};
+		/* */ var $f, $c = false, $s = 0, $r; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		$r = base.$init(); /* */ $s = 1; case 1: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		$pkg.ASCII = $clone(base.NewFormatter(new sliceType(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X", "E"])), base.Formatter);
+		$pkg.Amer = $clone(base.NewFormatter(new sliceType(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "\xCE\xA7", "\xC6\x90"])), base.Formatter);
+		$pkg.Brit = $clone(base.NewFormatter(new sliceType(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "\xE2\x86\x8A", "\xE2\x86\x8B"])), base.Formatter);
+		/* */ } return; } if ($f === undefined) { $f = { $blk: $init }; } $f.$s = $s; $f.$r = $r; return $f;
+	};
+	$pkg.$init = $init;
+	return $pkg;
+})();
 $packages["image/color"] = (function() {
 	var $pkg = {}, $init, Color, RGBA, RGBA64, NRGBA, NRGBA64, Alpha, Alpha16, Gray, Gray16, modelFunc, YCbCr, NYCbCrA, CMYK, ptrType, funcType, ModelFunc, rgbaModel, rgba64Model, nrgbaModel, nrgba64Model, alphaModel, alpha16Model, grayModel, gray16Model, RGBToYCbCr, yCbCrModel, nYCbCrAModel, RGBToCMYK, cmykModel;
 	Color = $pkg.Color = $newType(8, $kindInterface, "color.Color", true, "image/color", true, null);
@@ -31109,44 +31125,69 @@ $packages["honnef.co/go/js/dom"] = (function() {
 	return $pkg;
 })();
 $packages["main"] = (function() {
-	var $pkg = {}, $init, fmt, base, dom, big, strconv, strings, sliceType, ptrType, ptrType$1, sliceType$1, sex, main, convert;
+	var $pkg = {}, $init, fmt, base, dozenal, dom, big, strconv, strings, ptrType, sliceType, ptrType$1, ptrType$2, ptrType$3, sliceType$1, sex, main, convert;
 	fmt = $packages["fmt"];
 	base = $packages["github.com/TUSF/base"];
+	dozenal = $packages["github.com/TUSF/base/dozenal"];
 	dom = $packages["honnef.co/go/js/dom"];
 	big = $packages["math/big"];
 	strconv = $packages["strconv"];
 	strings = $packages["strings"];
+	ptrType = $ptrType(big.Int);
 	sliceType = $sliceType($String);
-	ptrType = $ptrType(dom.HTMLInputElement);
-	ptrType$1 = $ptrType(dom.KeyboardEvent);
+	ptrType$1 = $ptrType(dom.HTMLInputElement);
+	ptrType$2 = $ptrType(dom.HTMLSelectElement);
+	ptrType$3 = $ptrType(dom.KeyboardEvent);
 	sliceType$1 = $sliceType($emptyInterface);
 	main = function() {
-		var _r, _r$1, _r$2, document, input, output, $s, $r;
-		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; _r = $f._r; _r$1 = $f._r$1; _r$2 = $f._r$2; document = $f.document; input = $f.input; output = $f.output; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		var _r, _r$1, _r$2, _r$3, document, input, options, output, $s, $r;
+		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; _r = $f._r; _r$1 = $f._r$1; _r$2 = $f._r$2; _r$3 = $f._r$3; document = $f.document; input = $f.input; options = $f.options; output = $f.output; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
 		input = [input];
+		options = [options];
 		output = [output];
 		_r = dom.GetWindow().Document(); /* */ $s = 1; case 1: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
 		document = _r;
 		_r$1 = document.GetElementByID("input"); /* */ $s = 2; case 2: if($c) { $c = false; _r$1 = _r$1.$blk(); } if (_r$1 && _r$1.$blk !== undefined) { break s; }
-		input[0] = $assertType(_r$1, ptrType);
+		input[0] = $assertType(_r$1, ptrType$1);
 		_r$2 = document.GetElementByID("output"); /* */ $s = 3; case 3: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
 		output[0] = _r$2;
-		input[0].BasicHTMLElement.BasicElement.BasicNode.AddEventListener("keydown", false, (function(input, output) { return function $b(e) {
-			var _r$3, e, ke, $s, $r;
-			/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; _r$3 = $f._r$3; e = $f.e; ke = $f.ke; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
-			ke = $assertType(e, ptrType$1);
+		_r$3 = document.GetElementByID("base"); /* */ $s = 4; case 4: if($c) { $c = false; _r$3 = _r$3.$blk(); } if (_r$3 && _r$3.$blk !== undefined) { break s; }
+		options[0] = $assertType(_r$3, ptrType$2);
+		base.Formatter.copy($pkg.BAS, dozenal.ASCII);
+		input[0].BasicHTMLElement.BasicElement.BasicNode.AddEventListener("keydown", false, (function(input, options, output) { return function $b(e) {
+			var _r$4, e, ke, $s, $r;
+			/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; _r$4 = $f._r$4; e = $f.e; ke = $f.ke; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+			ke = $assertType(e, ptrType$3);
 			/* */ if (($parseInt(ke.BasicEvent.Object.keyCode) >> 0) === 13) { $s = 1; continue; }
 			/* */ $s = 2; continue;
 			/* if (($parseInt(ke.BasicEvent.Object.keyCode) >> 0) === 13) { */ case 1:
-				_r$3 = convert($internalize(input[0].BasicHTMLElement.BasicElement.BasicNode.Object.value, $String)); /* */ $s = 3; case 3: if($c) { $c = false; _r$3 = _r$3.$blk(); } if (_r$3 && _r$3.$blk !== undefined) { break s; }
-				$r = output[0].SetTextContent(_r$3); /* */ $s = 4; case 4: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+				_r$4 = convert($internalize(input[0].BasicHTMLElement.BasicElement.BasicNode.Object.value, $String)); /* */ $s = 3; case 3: if($c) { $c = false; _r$4 = _r$4.$blk(); } if (_r$4 && _r$4.$blk !== undefined) { break s; }
+				$r = output[0].SetTextContent(_r$4); /* */ $s = 4; case 4: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 				ke.BasicEvent.PreventDefault();
 			/* } */ case 2:
 			$s = -1; return;
-			/* */ } return; } if ($f === undefined) { $f = { $blk: $b }; } $f._r$3 = _r$3; $f.e = e; $f.ke = ke; $f.$s = $s; $f.$r = $r; return $f;
-		}; })(input, output));
+			/* */ } return; } if ($f === undefined) { $f = { $blk: $b }; } $f._r$4 = _r$4; $f.e = e; $f.ke = ke; $f.$s = $s; $f.$r = $r; return $f;
+		}; })(input, options, output));
+		options[0].BasicHTMLElement.BasicElement.BasicNode.AddEventListener("change", false, (function(input, options, output) { return function $b(e) {
+			var _1, _r$4, e, $s, $r;
+			/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; _1 = $f._1; _r$4 = $f._r$4; e = $f.e; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+			_1 = $internalize(options[0].BasicHTMLElement.BasicElement.BasicNode.Object.value, $String);
+			if (_1 === ("sex")) {
+				base.Formatter.copy($pkg.BAS, sex);
+			} else if (_1 === ("dozascii")) {
+				base.Formatter.copy($pkg.BAS, dozenal.ASCII);
+			} else if (_1 === ("dozamer")) {
+				base.Formatter.copy($pkg.BAS, dozenal.Amer);
+			} else if (_1 === ("dozbrit")) {
+				base.Formatter.copy($pkg.BAS, dozenal.Brit);
+			}
+			_r$4 = convert($internalize(input[0].BasicHTMLElement.BasicElement.BasicNode.Object.value, $String)); /* */ $s = 1; case 1: if($c) { $c = false; _r$4 = _r$4.$blk(); } if (_r$4 && _r$4.$blk !== undefined) { break s; }
+			$r = output[0].SetTextContent(_r$4); /* */ $s = 2; case 2: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+			$s = -1; return;
+			/* */ } return; } if ($f === undefined) { $f = { $blk: $b }; } $f._1 = _1; $f._r$4 = _r$4; $f.e = e; $f.$s = $s; $f.$r = $r; return $f;
+		}; })(input, options, output));
 		$s = -1; return;
-		/* */ } return; } if ($f === undefined) { $f = { $blk: main }; } $f._r = _r; $f._r$1 = _r$1; $f._r$2 = _r$2; $f.document = document; $f.input = input; $f.output = output; $f.$s = $s; $f.$r = $r; return $f;
+		/* */ } return; } if ($f === undefined) { $f = { $blk: main }; } $f._r = _r; $f._r$1 = _r$1; $f._r$2 = _r$2; $f._r$3 = _r$3; $f.document = document; $f.input = input; $f.options = options; $f.output = output; $f.$s = $s; $f.$r = $r; return $f;
 	};
 	convert = function(s) {
 		var INT, INT$1, RAT, RAT$1, RAT$2, _r, _r$1, _r$2, _r$3, _r$4, _r$5, _r$6, _r$7, _r$8, _r$9, _tuple, _tuple$1, _tuple$2, _tuple$3, _tuple$4, _tuple$5, d, err, err$1, nums, s, t, t$1, t$2, $s, $r;
@@ -31162,7 +31203,7 @@ $packages["main"] = (function() {
 		/* */ if (t) { $s = 3; continue; }
 		/* */ $s = 4; continue;
 		/* if (t) { */ case 3:
-			_r$2 = $clone(sex, base.Formatter).BigInt(INT$1); /* */ $s = 6; case 6: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
+			_r$2 = $clone($pkg.BAS, base.Formatter).BigInt(INT$1); /* */ $s = 6; case 6: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
 			$s = -1; return _r$2;
 		/* } else { */ case 4:
 			_r$3 = RAT.SetString(s); /* */ $s = 7; case 7: if($c) { $c = false; _r$3 = _r$3.$blk(); } if (_r$3 && _r$3.$blk !== undefined) { break s; }
@@ -31172,7 +31213,7 @@ $packages["main"] = (function() {
 			/* */ if (t$1) { $s = 8; continue; }
 			/* */ $s = 9; continue;
 			/* if (t$1) { */ case 8:
-				_r$4 = $clone(sex, base.Formatter).BigRat(RAT$1); /* */ $s = 11; case 11: if($c) { $c = false; _r$4 = _r$4.$blk(); } if (_r$4 && _r$4.$blk !== undefined) { break s; }
+				_r$4 = $clone($pkg.BAS, base.Formatter).BigRat(RAT$1); /* */ $s = 11; case 11: if($c) { $c = false; _r$4 = _r$4.$blk(); } if (_r$4 && _r$4.$blk !== undefined) { break s; }
 				$s = -1; return _r$4;
 			/* } else { */ case 9:
 				/* */ if (strings.Index(s, ".") > -1) { $s = 12; continue; }
@@ -31218,7 +31259,7 @@ $packages["main"] = (function() {
 							}
 							_r$8 = RAT$2.Add(RAT$2, d); /* */ $s = 24; case 24: if($c) { $c = false; _r$8 = _r$8.$blk(); } if (_r$8 && _r$8.$blk !== undefined) { break s; }
 							_r$8;
-							_r$9 = $clone(sex, base.Formatter).BigRat(RAT$2); /* */ $s = 25; case 25: if($c) { $c = false; _r$9 = _r$9.$blk(); } if (_r$9 && _r$9.$blk !== undefined) { break s; }
+							_r$9 = $clone($pkg.BAS, base.Formatter).BigRat(RAT$2); /* */ $s = 25; case 25: if($c) { $c = false; _r$9 = _r$9.$blk(); } if (_r$9 && _r$9.$blk !== undefined) { break s; }
 							$s = -1; return _r$9;
 						/* } */ case 20:
 						$s = 17; continue;
@@ -31239,17 +31280,19 @@ $packages["main"] = (function() {
 		/* */ var $f, $c = false, $s = 0, $r; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
 		$r = fmt.$init(); /* */ $s = 1; case 1: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		$r = base.$init(); /* */ $s = 2; case 2: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
-		$r = dom.$init(); /* */ $s = 3; case 3: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
-		$r = big.$init(); /* */ $s = 4; case 4: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
-		$r = strconv.$init(); /* */ $s = 5; case 5: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
-		$r = strings.$init(); /* */ $s = 6; case 6: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		$r = dozenal.$init(); /* */ $s = 3; case 3: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		$r = dom.$init(); /* */ $s = 4; case 4: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		$r = big.$init(); /* */ $s = 5; case 5: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		$r = strconv.$init(); /* */ $s = 6; case 6: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		$r = strings.$init(); /* */ $s = 7; case 7: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		$pkg.BAS = new base.Formatter.ptr(0, ptrType.nil, sliceType.nil);
 		sex = $clone(base.NewFormatter(new sliceType(["0", "1", "2", "3", "4", "5"])), base.Formatter);
-		/* */ if ($pkg === $mainPkg) { $s = 7; continue; }
-		/* */ $s = 8; continue;
-		/* if ($pkg === $mainPkg) { */ case 7:
-			$r = main(); /* */ $s = 9; case 9: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		/* */ if ($pkg === $mainPkg) { $s = 8; continue; }
+		/* */ $s = 9; continue;
+		/* if ($pkg === $mainPkg) { */ case 8:
+			$r = main(); /* */ $s = 10; case 10: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 			$mainFinished = true;
-		/* } */ case 8:
+		/* } */ case 9:
 		/* */ } return; } if ($f === undefined) { $f = { $blk: $init }; } $f.$s = $s; $f.$r = $r; return $f;
 	};
 	$pkg.$init = $init;
@@ -31262,4 +31305,4 @@ $go($mainPkg.$init, []);
 $flushConsole();
 
 }).call(this);
-//# sourceMappingURL=seximal.js.map
+//# sourceMappingURL=bases.js.map
