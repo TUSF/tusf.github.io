@@ -31124,8 +31124,8 @@ $packages["honnef.co/go/js/dom"] = (function() {
 	$pkg.$init = $init;
 	return $pkg;
 })();
-$packages["main"] = (function() {
-	var $pkg = {}, $init, fmt, base, dozenal, dom, big, strconv, strings, ptrType, sliceType, ptrType$1, ptrType$2, ptrType$3, sliceType$1, sex, main, convert;
+$packages["."] = (function() {
+	var $pkg = {}, $init, fmt, base, dozenal, dom, big, strconv, strings, ptrType, sliceType, ptrType$1, ptrType$2, ptrType$3, sliceType$1, sex, hexsex, hex, main, convert;
 	fmt = $packages["fmt"];
 	base = $packages["github.com/TUSF/base"];
 	dozenal = $packages["github.com/TUSF/base/dozenal"];
@@ -31174,6 +31174,10 @@ $packages["main"] = (function() {
 			_1 = $internalize(options[0].BasicHTMLElement.BasicElement.BasicNode.Object.value, $String);
 			if (_1 === ("sex")) {
 				base.Formatter.copy($pkg.BAS, sex);
+			} else if (_1 === ("hexsex")) {
+				base.Formatter.copy($pkg.BAS, hexsex);
+			} else if (_1 === ("hex")) {
+				base.Formatter.copy($pkg.BAS, hex);
 			} else if (_1 === ("dozascii")) {
 				base.Formatter.copy($pkg.BAS, dozenal.ASCII);
 			} else if (_1 === ("dozamer")) {
@@ -31287,6 +31291,8 @@ $packages["main"] = (function() {
 		$r = strings.$init(); /* */ $s = 7; case 7: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		$pkg.BAS = new base.Formatter.ptr(0, ptrType.nil, sliceType.nil);
 		sex = $clone(base.NewFormatter(new sliceType(["0", "1", "2", "3", "4", "5"])), base.Formatter);
+		hexsex = $clone(base.NewFormatter(new sliceType(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"])), base.Formatter);
+		hex = $clone(base.NewFormatter(new sliceType(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"])), base.Formatter);
 		/* */ if ($pkg === $mainPkg) { $s = 8; continue; }
 		/* */ $s = 9; continue;
 		/* if ($pkg === $mainPkg) { */ case 8:
@@ -31299,7 +31305,7 @@ $packages["main"] = (function() {
 	return $pkg;
 })();
 $synthesizeMethods();
-var $mainPkg = $packages["main"];
+var $mainPkg = $packages["."];
 $packages["runtime"].$init();
 $go($mainPkg.$init, []);
 $flushConsole();
