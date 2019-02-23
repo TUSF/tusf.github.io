@@ -1,9 +1,64 @@
+body {
+	font-size: 12pt;
+	font-family: serif;
+}
+
+h1, h2 {
+	text-align: left;
+}
+h1 { font-size: 2em; }
+h2 { font-size: 1.4em; }
+
 p {
 	text-indent: 1em;
 	margin-top: 0;
-	margin-bottom: 0.4em;
+	margin-bottom: 0.2em;
+}
+
+p.dub {
+	margin-top: 1em;
 }
 
 p.noindent {
 	text-indent: 0;
+}
+
+article {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	border: 1px solid rgba(0,0,0,0.5);
+	box-shadow: 0.2em 0.2em 1em rgba(0,0,0,0.2);
+	padding: 3em;
+	margin: 1em;
+	overflow-wrap: break-word;
+	text-align: justify;
+	hyphens: auto;
+	transition: all 0.5s ease;
+}
+
+article > .page-name {
+	position: absolute;
+	right: 2em;
+	top: 1em;
+}
+
+/* Screens 7in wide or more  */
+@media (min-width: 7in) {
+	article {
+		width: 5in;
+	}
+}
+/* Screens 7in wide or less */
+@media (max-width: 7in) {
+	article {
+		width: calc(100% - 1in - 2em);
+	}
+}
+
+@media (max-width: 550px) {
+	article {
+		padding: 1em;
+		width: calc(100% - 2em - 2em);
+	}
 }
