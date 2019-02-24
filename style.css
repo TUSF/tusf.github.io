@@ -13,13 +13,16 @@ article {
 	display: inline-block;
 	vertical-align: top;
 	border: 1px solid rgba(0,0,0,0.5);
-	box-shadow: 0.2em 0.2em 1em rgba(0,0,0,0.2);
+	box-shadow: 0.2em 0.2em 0.5em rgba(0,0,0,0.2);
 	padding: 3em;
 	margin: 1em;
 	overflow-wrap: break-word;
 	text-align: justify;
 	hyphens: auto;
 	transition: all 0.5s ease;
+}
+article:hover {
+	box-shadow: 0.2em 0.2em 3em rgba(0,0,0,0.2);
 }
 
 h1, h2 {
